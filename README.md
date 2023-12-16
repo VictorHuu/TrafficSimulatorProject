@@ -81,8 +81,8 @@
 ​     最后，从交互性上说，两个场景的相互转化可以让操作更灵活，倍速可以让玩家查看细节或者是节省时间，暂停演示同理。
 
 ###    资源信号量Crossing
-
-​     现在来到了本次项目中最关键的部分。我们将十字路口视作一个资源信号量，只能进行三种操作，初始化用Start实现，P操作用OnTriggerEnter实现，V操作用OnTriggerExit实现。
+> [!IMPORTANT]
+​>     现在来到了本次项目中最关键的部分。我们将十字路口视作一个资源信号量，只能进行三种操作，初始化用Start实现，P操作用OnTriggerEnter实现，V操作用OnTriggerExit实现。
 
 简要介绍一下触发器Trigger。Trigger可以看做一种特殊的碰撞器Collider，它不参与物理引擎中的活动，但是当有碰撞体进入Trigger时，会触发脚本生命周期的OnTriggerEnter函数，当有碰撞体离开时，会触发OnTriggerExit函数。
 
