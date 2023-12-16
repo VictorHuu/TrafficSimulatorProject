@@ -30,8 +30,8 @@
 ​     [**WayPoint**](Assets/Scripts/Waypoint.cs)：路点属性，用于指示方向与辅助寻路。
 
 ​     [**Respawn**](Assets/Scripts/Respawn.cs)：车辆的重新生成，可以用于无限演示，主要是通过4个方向各有一个消失点与生成点来实现的，空白消失点设置一个盒子碰撞器并用射线进行碰撞检测，如果有车辆，那么就SetActive(false)注销该车辆,将车辆的位置设置为对应的生成点的位置，一般为一条路的另一端，再设置一些基本属性，最后SetActive(true)，这样的话就实现了无限车流。
-
-​     接下来是本项目中最重要的两个脚本[**Run.cs**](Assets/Scripts/Run.cs)与[**Crossing.cs**](Assets/Scripts/Crossing.cs)：
+> [!IMPORTANT]
+>​     接下来是本项目中最重要的两个脚本[**Run.cs**](Assets/Scripts/Run.cs)与[**Crossing.cs**](Assets/Scripts/Crossing.cs)：
 
 ###    车辆逻辑控制：
 
