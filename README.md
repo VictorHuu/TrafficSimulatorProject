@@ -8,7 +8,7 @@
 
 ## 美术资源
 
-1. 汽车：来源于Unity Asset Store的ARCADE库。大部分车为蓝色，一部分车为紫色，红色，黄色，分别表示警车，救护车，消防车。
+1. [汽车](Assets/ARCADE%20-%20FREE%20Racing%20Car)：来源于Unity Asset Store的ARCADE库。大部分车为蓝色，一部分车为紫色，红色，黄色，分别表示警车，救护车，消防车。
 2. 环境：地面采用Unity默认的Terrain，带有Terrain Collider防止携带物理引擎的游戏对象下沉。
 3. 交通灯：创建一个空物体TrafficLight，然后再创建两个圆柱Cylinder作为子物体拼接起来，最后再加上球体Sphere作为指示灯。Cylinder材质设置为，Albebo Color为银灰色，带有很强的金属光泽，表面粗糙；Sphere材质设置为：Albedo Color通过脚本Signal设置，将在脚本部分详细介绍，表面光滑，emission light 发射光为白光。
 4. 路点标志：本项目设置8个Waypoint，每个方向左右两个，结合脚本用于后续控制车的移动方向。
@@ -19,19 +19,19 @@
 
 ​     本项目的所有脚本放于Asset文件夹下的Scripts文件夹，其中Common中存放枚举量。以下是各脚本的简要介绍：
 
-​     Common/DirectionType：放置行驶方向SteeringDirection枚举，有左右前后4种。
+​     [**Common/DirectionType**](Assets/Scripts/Common/DirectionType.cs)：放置行驶方向SteeringDirection枚举，有左右前后4种。
 
-​     Common/Turn：放置十字路口的行驶选择，有直走GoAhead,左转TurnLeft，右转TurnRight三种。
+​     [**Common/Turn**](Assets/Scripts/Common/Turn.cs)：放置十字路口的行驶选择，有直走GoAhead,左转TurnLeft，右转TurnRight三种。
 
-​     GUI：一些简单的按钮，如退出。通过Unity的脚本生命周期控制，具体来说指Unity的机制是事件触发，在从程序开始执行到结束的过程中一定会发生的一系列事件的规律。比如OnGUI就是指点击GUI上面的一些元素一定会触发的函数，我们可以在其中编写具体的代码，比如在OnGUI中首先判断是否点击了“退出”按钮，如果是，那么就退出程序。
+​     [**GUI**](Assets/Scripts/GUI.cs)：一些简单的按钮，如退出。通过Unity的脚本生命周期控制，具体来说指Unity的机制是事件触发，在从程序开始执行到结束的过程中一定会发生的一系列事件的规律。比如OnGUI就是指点击GUI上面的一些元素一定会触发的函数，我们可以在其中编写具体的代码，比如在OnGUI中首先判断是否点击了“退出”按钮，如果是，那么就退出程序。
 
-​     Signal：用于控制信号灯颜色变化的脚本，挂载到信号灯上。首先是在脚本生命周期的Start函数中利用随机数初始化颜色（具体来说就是首先找到挂载物体的MeshRenderer网格渲染器，找到材料material，然后设置颜色color，即材料面板中的Albedo Color），因为Start在游戏开始执行时一定会被触发，因此常用来初始化。之后的AlterColor函数用于切换颜色，在Start的最后调用InvokeRepeating用于反复调用，其中InvokeRepeating的第一个参数为被调用函数名的字符串，第二个参数为调用的开始时间，第三个参数为调用频率，设置为8s。
+​     [**Signal**](Assets/Scripts/Signal.cs)：用于控制信号灯颜色变化的脚本，挂载到信号灯上。首先是在脚本生命周期的Start函数中利用随机数初始化颜色（具体来说就是首先找到挂载物体的MeshRenderer网格渲染器，找到材料material，然后设置颜色color，即材料面板中的Albedo Color），因为Start在游戏开始执行时一定会被触发，因此常用来初始化。之后的AlterColor函数用于切换颜色，在Start的最后调用InvokeRepeating用于反复调用，其中InvokeRepeating的第一个参数为被调用函数名的字符串，第二个参数为调用的开始时间，第三个参数为调用频率，设置为8s。
 
-​     WayPoint：路点属性，用于指示方向与辅助寻路。
+​     [**WayPoint**](Assets/Scripts/Waypoint.cs)：路点属性，用于指示方向与辅助寻路。
 
-​     Respawn：车辆的重新生成，可以用于无限演示，主要是通过4个方向各有一个消失点与生成点来实现的，空白消失点设置一个盒子碰撞器并用射线进行碰撞检测，如果有车辆，那么就SetActive(false)注销该车辆,将车辆的位置设置为对应的生成点的位置，一般为一条路的另一端，再设置一些基本属性，最后SetActive(true)，这样的话就实现了无限车流。
+​     [**Respawn**](Assets/Scripts/Respawn.cs)：车辆的重新生成，可以用于无限演示，主要是通过4个方向各有一个消失点与生成点来实现的，空白消失点设置一个盒子碰撞器并用射线进行碰撞检测，如果有车辆，那么就SetActive(false)注销该车辆,将车辆的位置设置为对应的生成点的位置，一般为一条路的另一端，再设置一些基本属性，最后SetActive(true)，这样的话就实现了无限车流。
 
-​     接下来是本项目中最重要的两个脚本Run.cs与Crossing.cs：
+​     接下来是本项目中最重要的两个脚本[**Run.cs**](Assets/Scripts/Run.cs)与[**Crossing.cs**](Assets/Scripts/Crossing.cs)：
 
 ###    车辆逻辑控制：
 
@@ -88,8 +88,8 @@
 
 我们首先来看一下老师课件中的信号量成员与P /V操作：
 
-1. 数据成员与初始化：
-
+#### 1. 数据成员与初始化：
+```C#
 Typedef struct{
 
   Int value;
@@ -97,13 +97,13 @@ Typedef struct{
   Struct process*list;
 
 }semaphore;
-
+```
 对应到脚本中：
-
+```C#
 internal int CrossingAvailable=2;
 
 internal List<Collider> list;
-
+```
 list用于保存等待的车辆对应的碰撞体，CrossingAvailable为资源信号量(以下简称S)。我们有：
 
 S>0表示十字路口可以再行驶S辆车；
@@ -112,8 +112,8 @@ S=0表示十字路口不可再行驶车辆；
 
 S<0表示在十字路口中有|S|辆车在等待。
 
-2. V原语：
-
+#### 2. V原语：
+```C#
 signal(semaphore* s){
 
  S->value++;
@@ -127,9 +127,9 @@ If(S->value<=0){
 }
 
 }
-
+```
   V操作用于释放资源（或使用权），执行V原语时可能唤醒一个阻塞进程。以下是本项目中的OnTriggerExit部分：
-
+```C#
   if (other != null && other.gameObject != null && other.gameObject.layer == 3)
 
 ​      {
@@ -181,13 +181,13 @@ If(S->value<=0){
  
 
 ​       }
-
+```
 第一行用于判断是否为车辆对应碰撞体离开触发器。Mutex3为互斥锁，WaitOne函数与ReleaseMutex函数中间的为关键部分。关键部分的首先将资源信号量的值CrossingAvailable加1，对应S->value++;如果CrossingAvailable小于等于0，那么就从list队列中随机移除一个进程对应的Run（表示车辆）对应Remove a process P from S->list。与此同时就唤醒了一个进程，因为Unity3D本身就是多线程的，将对应的Run从list队列中移除后Update函数的第一个if语句
 
 if (crossing.list.Contains(GetComponent<Collider>()))恒为否，对应线程不再等待，对应WakeUp(P)。如果CrossingAvailable大于0，那么就直接让经过的碰撞体的InCrossing为false，对应车辆继续行驶。
 
-3. P原语：
-
+#### 3. P原语：
+```C#
   Wait(semaphore* s){
 
 ​    S->value--;
@@ -201,9 +201,9 @@ if (crossing.list.Contains(GetComponent<Collider>()))恒为否，对应线程不
 }
 
 }
-
+```
 P操作用于申请资源（或使用权），进程执行P原语时，可能阻塞自己。对应到crossing脚本中：
-
+```C#
 if (other != null && other.gameObject != null && other.gameObject.layer == 3)
 
 ​      {
@@ -220,7 +220,7 @@ if (other != null && other.gameObject != null && other.gameObject.layer == 3)
 
 ​        mutex.WaitOne();
 
-​        \#region critical section
+​        #region critical section
 
 ​        CrossingAvailable--;
 
@@ -236,11 +236,13 @@ if (other != null && other.gameObject != null && other.gameObject.layer == 3)
 
 ​        }
 
-​        \#endregion
+​        #endregion
 
 ​         mutex.ReleaseMutex();
 
-​      }首先确认是车辆的碰撞体进入十字路口，然后再判断每辆车只能作为一个碰撞体进入十字路口，通过对字典colliders的操作来实现，具体来说，就是如果字典colliders中存在other，说明之前other对应的车辆已经进入十字路口，再次进入是不合理的，所以直接返回，否则将该碰撞体添加到字典中，然后将该辆车标记为位于十字路口中，即Incrossing为真。来到关键部分，首先资源量-1，接着将碰撞体添加到等待队列中，这样的话Update函数的第一个if语句
+​      }
+```
+首先确认是车辆的碰撞体进入十字路口，然后再判断每辆车只能作为一个碰撞体进入十字路口，通过对字典colliders的操作来实现，具体来说，就是如果字典colliders中存在other，说明之前other对应的车辆已经进入十字路口，再次进入是不合理的，所以直接返回，否则将该碰撞体添加到字典中，然后将该辆车标记为位于十字路口中，即Incrossing为真。来到关键部分，首先资源量-1，接着将碰撞体添加到等待队列中，这样的话Update函数的第一个if语句
 
 if (crossing.list.Contains(GetComponent<Collider>()))恒为真，对应线程受到阻塞。
 
